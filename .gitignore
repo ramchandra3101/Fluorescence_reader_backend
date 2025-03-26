@@ -1,4 +1,7 @@
 djangoenv
 media
 uploads
-**/__pycache__/
+api/__pycache__
+api/services/__pycache__
+Fluroscence_backend/__pycache__
+

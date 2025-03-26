@@ -22,9 +22,9 @@ class ContourAnalyzer:
                 if abs(row[0][1] - centroid[1]) < threshold:
                     row.append(centroid)
                     added = True
-                break
-        if not added:
-            rows.append([centroid])
+                    break
+            if not added:
+                rows.append([centroid])
         return rows
 
     @staticmethod
