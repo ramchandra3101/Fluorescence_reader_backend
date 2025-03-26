@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Image Upload</title>
+</head>
+<body>
+    <h2>Image Upload Test</h2>
+    <form action="http://127.0.0.1:8000/api/process-image/" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*">
+        <button type="submit">Upload and Process</button>
+    </form>
+</body>
+</html>

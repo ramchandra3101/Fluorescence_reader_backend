@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 import os
 from django.conf import settings
-from JsonFormatter import JSONFormatter
-from ContourAnalyzer import ContourAnalyzer
+from .JsonFormatter import JSONFormatter
+from .ContourAnalyzer import ContourAnalyzer
 
 class ImageProcessor:
     """To process RGB Values"""
@@ -19,9 +19,9 @@ class ImageProcessor:
         imageRGB = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) #Convert to RGB Image
         imageHSV = cv2.cvtColor(image, cv2.COLOR_BGR2HSV) #Convert to HSV Image
         lowerYellow = np.array([23, 100, 100])
-        upperYellow = np.array([30, 255, 255])
+        upperYellow = np.array([100, 255, 255])
         mask = cv2.inRange(imageHSV, lowerYellow, upperYellow)
-        yellow_only = cv2.bitwise_and(image, image, mask=mask)#Yello araes in the regions only display
+        yellow_only = cv2.bitwise_and(image, image, mask=mask)#Yellow areas in the regions only display
         finalImage = cv2.GaussianBlur(yellow_only, (5, 5), 0)
         gray_image = cv2.cvtColor(finalImage, cv2.COLOR_BGR2GRAY)
         _,binaryImage = cv2.threshold(gray_image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
@@ -58,12 +58,13 @@ class ImageProcessor:
         row_contours = ContourAnalyzer.map_contours_to_rows(filtered_centroids, tubeContours, rows)
         average_RGB_values = ContourAnalyzer.calculate_average_rgb(imageRGB, row_contours)
         result_json = JSONFormatter.generate_json(average_RGB_values)
-        return result_json, row_contours, imageRGB
+        contoured_image = cv2.drawContours(image, [np.array(contour) for row in row_contours for contour in row], -1, (0, 255, 0), 2)
+        return result_json, contoured_image
         
     
 
 
-    
+
             
             
 
