@@ -4,4 +4,5 @@ uploads
 api/__pycache__
 api/services/__pycache__
 Fluroscence_backend/__pycache__
+.env
 

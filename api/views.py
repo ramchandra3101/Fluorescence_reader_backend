@@ -24,23 +24,24 @@ def process_image(request):
         try:
             image_processor = ImageProcessor()
             image_path = os.path.join(settings.MEDIA_ROOT, instance.image.name)
-            result_json, contoured_image = image_processor.process_image(image_path)
+            result_json= image_processor.process_image(image_path)
+            
             
             # Convert numpy array to file-like object
-            success, buffer = cv2.imencode('.jpg', contoured_image)
-            if not success:
-                raise ValueError("Failed to encode the contoured image")
+            #success, buffer = cv2.imencode('.jpg', contoured_image)
+            #if not success:
+                #raise ValueError("Failed to encode the contoured image")
             
             # Save the image to the processed_image field
-            content_file = ContentFile(buffer.tobytes())
+            #content_file = ContentFile(buffer.tobytes())
             instance.result_json = result_json
-            instance.processed_image.save(f"processed_{os.path.basename(instance.image.name)}", content_file, save=True)
-            image_base64 = base64.b64encode(buffer).decode('utf-8')
+            #instance.processed_image.save(f"processed_{os.path.basename(instance.image.name)}", content_file, save=True)
+            #image_base64 = base64.b64encode(buffer).decode('utf-8')
             return Response(
                 {
                     'id': instance.id,
-                    'image': instance.image.url,
-                    'processed_image': image_base64,
+                    #'image': instance.image.url,
+                    #'processed_image': image_base64,
                     'result_json': instance.result_json,
                     'created_at': instance.created_at
                 },

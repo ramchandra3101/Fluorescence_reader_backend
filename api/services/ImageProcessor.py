@@ -59,7 +59,7 @@ class ImageProcessor:
         average_RGB_values = ContourAnalyzer.calculate_average_rgb(imageRGB, row_contours)
         result_json = JSONFormatter.generate_json(average_RGB_values)
         contoured_image = cv2.drawContours(image, [np.array(contour) for row in row_contours for contour in row], -1, (0, 255, 0), 2)
-        return result_json, contoured_image
+        return result_json
         
     
 
